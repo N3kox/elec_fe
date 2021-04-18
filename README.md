@@ -1,6 +1,7 @@
-English | [简体中文](./README.zh-CN.md)
+English
 
-## Vue D3 V5 Examples
+## Knowledge Graph for elec project
+## Vue D3 Neo.4j
 
 `Vue`   `D3`   `V5`   `Examples`
 
@@ -11,10 +12,6 @@ node: `v11.10.0`
 vue: `v2.6.6`
 
 d3: `v5.12.0`
-
-### Online Preview
-
-https://gywgithub.github.io/vue-d3-examples/
 
 ### Project setup
 ```
@@ -36,11 +33,6 @@ npm run serve
 npm run build
 ```
 
-### Code for lint check
-```
-npm run lint
-```
-
 ## License
 
-[MIT License](https://github.com/gywgithub/vue-d3-examples/blob/master/LICENSE)
+MIT License
