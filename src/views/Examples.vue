@@ -177,7 +177,8 @@ export default {
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title4.value'), path: '/examples/forcedirected' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title5.value'), path: '/examples/forcelayoutI' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title6.value'), path: '/examples/forcelayoutII' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title7.value'), path: '/examples/forcelayoutIII' }
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title7.value'), path: '/examples/forcelayoutIII' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title8.value'), path: '/examples/D3Network' }
           ],
           appendIcon: 'mdi-chevron-down'
         },

@@ -143,6 +143,11 @@ export default new Router({
           component: () => import('./components/ForceBasedLabelPlacementIII.vue')
         },
         {
+          path: '/examples/D3Network',
+          name: 'D3Network',
+          component: () => import('./components/D3Network.vue')
+        },
+        {
           path: '/examples/forcedirected',
           name: 'forcedirected',
           component: () => import('./components/ForceDirectedGraph.vue')

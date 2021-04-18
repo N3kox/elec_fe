@@ -118,6 +118,9 @@ const messages = {
             },
             title7: {
               value: 'ForceLayoutIII'
+            },
+            title8: {
+              value: 'D3Network'
             }
           }
         },
@@ -245,6 +248,9 @@ const messages = {
             },
             title7: {
               value: '力导向图 布局 III'
+            },
+            tile8: {
+              value: 'D3Network'
             }
           }
         },
