@@ -8,20 +8,36 @@
         </li>
       </ul>
     </div>
-    <d3-network class="d3" ref="net" :net-nodes="nodes" :net-links="links" :options="options" @node-click="nodeClick"/>
+    <d3-network class="d3" ref="net" :net-nodes="nodes" :net-links="links" :options="options" @node-click="nodeClick" @link-click="linkClick" />
+    
+    <el-dialog title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :before-close="handleClose" :modal=false>
+      <span>显示node信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="nodeDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog title="Link Label" :visible.sync="linkDialogVisible" width="30%" :before-close="handleClose" :modal=false>
+      <span>显示link信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="linkDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 import D3Network from 'vue-d3-network'
 export default {
   data: () => ({
-    autoIncrementId : 1,
+    autoIncrementId: 1,
     nodes: [],
     links: [],
     nodeSize: 30,
     canvas: false,
     linksSelected: 'hello',
-    propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color']
+    propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color'],
+    nodeDialogVisible: false,
+    linkDialogVisible: false
   }),
   components: {
     D3Network
@@ -39,14 +55,18 @@ export default {
     }
   },
   methods: {
-    getAutoIncrementId(){
+    handleClose(done) {
+      this.nodeDialogVisible = false
+      this.linkDialogVisible = false
+    },
+    getAutoIncrementId() {
       this.autoIncrementId++
       return this.autoIncrementId - 1
     },
-    rgbRandom(){
-      let a = Math.floor(Math.random() * 255);
-      let b = Math.floor(Math.random() * 255);
-      let c = Math.floor(Math.random() * 255);
+    rgbRandom() {
+      let a = Math.floor(Math.random() * 255)
+      let b = Math.floor(Math.random() * 255)
+      let c = Math.floor(Math.random() * 255)
       return 'rgb(' + a + ', ' + b + ', ' + c + ')'
     },
     parseMissionTicketStop(text) {
@@ -55,8 +75,11 @@ export default {
       let missionTicketFounderMap = new Map()
       let newNodes = []
       let newLinks = []
-      
-      let c1 = that.rgbRandom(), c2 = that.rgbRandom(), c3 = that.rgbRandom(), c4 = that.rgbRandom()
+
+      let c1 = that.rgbRandom(),
+        c2 = that.rgbRandom(),
+        c3 = that.rgbRandom(),
+        c4 = that.rgbRandom()
       for (let i = 0; i < text.length; i++) {
         text[i].id = this.getAutoIncrementId()
         text[i].name = text[i].descSummary
@@ -69,37 +92,37 @@ export default {
         missionTicketFounder._color = c3
         missionTicketFounder.type = 'staff'
         // check routeLocation id
-        if(!routeLocationMap.has(routeLocation.name)){
+        if (!routeLocationMap.has(routeLocation.name)) {
           routeLocation.id = that.getAutoIncrementId()
           routeLocationMap.set(routeLocation.name, routeLocation.id)
           newNodes.push(routeLocation)
-        }else{
+        } else {
           routeLocation.id = routeLocationMap.get(routeLocation.name)
         }
-        
+
         //check missionTicketFounder id
-        if(!missionTicketFounderMap.has(missionTicketFounder.name)){
+        if (!missionTicketFounderMap.has(missionTicketFounder.name)) {
           missionTicketFounder.id = that.getAutoIncrementId()
           missionTicketFounderMap.set(missionTicketFounder.name, missionTicketFounder.id)
           newNodes.push(missionTicketFounder)
-        }else{
+        } else {
           missionTicketFounder.id = missionTicketFounderMap.get(missionTicketFounder.name)
         }
         //create links
         let l1 = {
-          sid : text[i].id,
-          tid : routeLocation.id,
-          _color : c4,
-          _svgAttrs: { 'stroke-width': 1, opacity: 1 }, 
+          sid: text[i].id,
+          tid: routeLocation.id,
+          _color: c4,
+          _svgAttrs: { 'stroke-width': 3, opacity: 1 },
           name: '站线名称'
         }
 
         let l2 = {
-          sid : text[i].id,
-          tid : missionTicketFounder.id,
-          _color : c4,
-          _svgAttrs: { 'stroke-width': 1, opacity: 1 }, 
-          name: '制票人' 
+          sid: text[i].id,
+          tid: missionTicketFounder.id,
+          _color: c4,
+          _svgAttrs: { 'stroke-width': 3, opacity: 1 },
+          name: '制票人'
         }
 
         newNodes.push(text[i])
@@ -109,11 +132,14 @@ export default {
       this.nodes = newNodes
       this.links = newLinks
     },
-    nodeClick(event, node){
-      for(let key in node){
-        if(this.propertiesStopList.indexOf(key) == -1)
-          window.console.log(key)
+    nodeClick(event, node) {
+      for (let key in node) {
+        if (this.propertiesStopList.indexOf(key) == -1) window.console.log(key)
+        this.nodeDialogVisible = true
       }
+    },
+    linkClick(event, link){
+      this.linkDialogVisible = true
     }
   },
   mounted() {
@@ -159,12 +185,12 @@ ul.menu li {
   margin-top: 1em;
   position: relative;
 }
-*{  
-	  -webkit-touch-callout:none;  /*系统默认菜单被禁用*/   
-	  -webkit-user-select:none; /*webkit浏览器*/   
-	  -khtml-user-select:none; /*早期浏览器*/   
-	  -moz-user-select:none;/*火狐*/   
-	  -ms-user-select:none; /*IE10*/   
-	  user-select:none;   
+* {
+  -webkit-touch-callout: none; /*系统默认菜单被禁用*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -khtml-user-select: none; /*早期浏览器*/
+  -moz-user-select: none; /*火狐*/
+  -ms-user-select: none; /*IE10*/
+  user-select: none;
 }
 </style>
