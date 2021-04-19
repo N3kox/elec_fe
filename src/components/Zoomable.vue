@@ -138,25 +138,6 @@ export default {
       .attr('r', radius)
       .attr('fill', circleColour)
 
-    // // add text
-    // g.append('text')
-    //   .attr('clip-path', function (d) {
-    //     console.log('d: ', d.name)
-    //     return 'url(#clip-' + d.name + ')'
-    //   })
-    //   .selectAll('tspan')
-    //   .data(function (d) { return d.data.id.split('.').pop().split(/(?=[A-Z][^A-Z])/g) })
-    //   .enter().append('tspan')
-    //   .attr('x', 0)
-    //   .attr('y', function (d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10 })
-    //   .text(function (d) { return d })
-
-    // let format = d3.format(',d')
-    // // add title
-    // node.append('title')
-    //   .text(function (d) { return d.data.id + '\n' + format(d.value) })
-
-    // add drag capabilities
     let dragHandler = d3.drag()
       .on('start', dragStart)
       .on('drag', dragDrag)

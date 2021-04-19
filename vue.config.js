@@ -5,6 +5,8 @@ module.exports = {
   outputDir: 'docs',
   lintOnSave: false,
   devServer: {
+    host : '0.0.0.0',
+    port : 9999,
     overlay: {
         warning: false,
         errors: false
