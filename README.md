@@ -4,7 +4,8 @@
 ### TODO LIST
 - [ ] 节点控制面板内容填充
 - [ ] 界面内动态增删node与link
-- [ ] zoom in & out
+- [x] zoom in & out
+- [ ] 任务描述动态查询关联方案
 
 ### Project setup
 ```

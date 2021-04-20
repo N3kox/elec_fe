@@ -148,6 +148,11 @@ export default new Router({
           component: () => import('./components/D3Network.vue')
         },
         {
+          path: '/examples/D3Network2',
+          name: 'D3Network2',
+          component: () => import('./components/D3Network2.vue')
+        },
+        {
           path: '/examples/forcedirected',
           name: 'forcedirected',
           component: () => import('./components/ForceDirectedGraph.vue')

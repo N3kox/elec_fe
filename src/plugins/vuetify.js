@@ -121,6 +121,9 @@ const messages = {
             },
             title8: {
               value: 'D3Network'
+            },
+            title9: {
+              value: 'D3Network2'
             }
           }
         },
