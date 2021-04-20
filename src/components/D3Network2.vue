@@ -1,4 +1,4 @@
-<template>  
+<template>
   <div id="app">
     <div class="title"></div>
     <svg id="svg" width="1000" height="700" class="container-border"></svg>
@@ -12,9 +12,10 @@
     </el-dialog> -->
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
-        <div v-for="(v, k) in nodeDetail" width="100%">
-            <div>{{k}}:{{v}}</div>
-        </div>
+      <div class="content-column" v-for="(v, k) in nodeDetail">
+        <span class="content-title">{{ k }}：</span>
+        <span class="content-words">{{ v }}</span>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="nodeDialogVisible = false">确 定</el-button>
       </span>
@@ -134,14 +135,14 @@ export default {
     nodeClick(node) {
       let nd = {}
       for (let k in node) {
-        if (this.propertiesStopList.indexOf(k) == -1){
-            nd[k] = node[k] != null ? node[k] : "NULL"
+        if (this.propertiesStopList.indexOf(k) == -1) {
+          nd[k] = node[k] != null ? node[k] : 'NULL'
         }
       }
       this.nodeDetail = nd
       this.nodeDialogVisible = true
-    //   if (node.type == 'ticket') window.console.log(node.descSummary)
-    //   else window.console.log(node.name)
+      //   if (node.type == 'ticket') window.console.log(node.descSummary)
+      //   else window.console.log(node.name)
     },
     linkClick(link) {
       this.linkDialogVisible = true
@@ -329,8 +330,35 @@ ul.menu li {
   user-select: none;
 }
 
-.properties_list{
-    float:left;
+.properties_list {
+  float: left;
 }
 
+.content-column {
+  opacity: 0.65;
+  box-sizing: content-box;
+  margin-left: 20px;
+  padding: 3px;
+}
+.content-title {
+  font-size: 16px;
+  font-family: SourceHanSansCN-Regular, sans-serif;
+  font-weight: 400;
+  color: black;
+  float: left;
+  opacity: 0.7;;
+}
+
+.content-words {
+  text-align: left;
+  font-size: 16px;
+  font-family: DIN-Regular, sans-serif;
+  font-weight: 400;
+  color: black;
+  opacity: 0.7;
+}
+.content-unit {
+  margin-left: 5px;
+  color: #9a9a9a;
+}
 </style>
