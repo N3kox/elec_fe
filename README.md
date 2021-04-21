@@ -3,7 +3,7 @@
 
 ### TODO LIST
 - [x] 节点信息面板内容填充(drawer)
-- [ ] 界面内动态增删node与link
+- ~~[ ] 界面内动态增删node与link~~
 - [x] zoom in & out
 - [ ] 任务描述动态查询关联方案
 - [ ] 节点properties英文对照

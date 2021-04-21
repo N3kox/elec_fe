@@ -13,8 +13,8 @@
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
       <div class="content-column" v-for="(v, k) in nodeDetail">
-        <span class="content-title">{{ k }}：</span>
-        <span class="content-words">{{ v }}</span>
+        <span>{{ k }}：</span>
+        <span>{{ v }}</span>
       </div>
       <div class="content-column">
         <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
