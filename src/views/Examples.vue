@@ -50,7 +50,7 @@
       />-->
       <v-spacer />
       <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
+      <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn
           text
           v-bind="attrs"
@@ -61,8 +61,8 @@
             mdi-chevron-down
           </v-icon>
         </v-btn>
-      </template>
-      <v-list>
+      </template> -->
+      <!-- <v-list>
         <v-list-item-group
           v-model="selectedItem"
           color="primary"
@@ -74,15 +74,15 @@
             <v-list-item-title @click="changeLang('zh')">简体中文</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
-      </v-list>
+      </v-list> -->
     </v-menu>
-      <v-btn icon @click="changeTheme">
+      <!-- <v-btn icon @click="changeTheme">
         <v-icon v-if="!dark">mdi-brightness-7</v-icon>
         <v-icon v-else>mdi-brightness-4</v-icon>
       </v-btn>
       <v-btn icon @click="openTab">
         <v-icon size="28">mdi-github</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-btn icon @click="dialog = true">
         <v-icon size="28">mdi-information-outline</v-icon>
       </v-btn>

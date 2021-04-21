@@ -16,9 +16,7 @@
         <span class="content-title">{{ k }}：</span>
         <span class="content-words">{{ v }}</span>
       </div>
-      <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="nodeDialogVisible = false">确 定</el-button>
-      </span>
     </el-drawer>
 
     <el-dialog title="Link Label" :visible.sync="linkDialogVisible" width="30%" :modal="false">
@@ -161,7 +159,7 @@ export default {
         return d.name
       })
 
-      let chargeForce = d3.forceManyBody().strength(-150)
+      let chargeForce = d3.forceManyBody().strength(-200)
       let centerForce = d3.forceCenter(width / 2, height / 2)
 
       simulation.force('chargeForce', chargeForce).force('centerForce', centerForce).force('links', linkForce)
