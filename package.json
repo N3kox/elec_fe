@@ -13,6 +13,7 @@
     "new:comp": "node ./scripts/generateComponent/index"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "element-ui": "^2.15.1",
     "vue": "^2.6.6",
     "vue-d3-network": "^0.1.28",

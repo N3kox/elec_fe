@@ -10,14 +10,9 @@
         class="display-3 font-weight-regular span-margin"
       >电力领域知识图谱demo</h4>
       <div>
-        <!-- <v-btn outlined large rounded color="primary" class="margin-0-15 z-index-2" @click="openTab"><v-icon left>mdi-github</v-icon>Github</v-btn> -->
         <v-btn outlined large rounded color="primary" class="margin-0-15 z-index-2" @click="routerRedirect"><v-icon left>mdi-palm-tree</v-icon>{{$vuetify.lang.t('$vuetify.examplesButton')}}</v-btn>
       </div>
     </div>
-    <!-- <v-btn fixed icon bottom right @click="changeTheme" class="z-index-2">
-      <v-icon v-if="!dark">mdi-brightness-7</v-icon>
-      <v-icon v-else>mdi-brightness-4</v-icon>
-    </v-btn> -->
   </div>
 </template>
 <script>
@@ -35,17 +30,9 @@ export default {
     }
   },
   methods: {
-    openTab () {
-      window.open('https://github.com/gywgithub/vue-d3-examples', '_blank')
-    },
     routerRedirect () {
       this.$router.push('/examples').catch(err => { }) // eslint-disable-line
-    },
-    changeTheme () {
-      this.dark = !this.dark
-      localStorage.setItem('themeDark', String(this.dark))
-      this.$vuetify.theme.dark = this.dark
-    }
+    },  
   }
 }
 </script>

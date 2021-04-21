@@ -16,129 +16,22 @@ const messages = {
       examplesButton: 'Enter',
       sidebar: {
         title1: {
-          value: 'Basic',
+          value: '信息查询',
           children: {
             title1: {
-              value: 'HelloWorld'
-            },
-            title2: {
-              value: 'UpdateEnterExit'
-            },
-            title3: {
-              value: 'GeneralUpdatePatternI'
-            },
-            title4: {
-              value: 'SelectElementAndBindData'
-            },
-            title5: {
-              value: 'SelectInsertRemove'
-            }
-          }
-        },
-        title2: {
-          value: 'Tree',
-          children: {
-            title1: {
-              value: 'TreeI'
-            },
-            title2: {
-              value: 'TreeII'
-            },
-            title3: {
-              value: 'TreeIII'
-            },
-            title4: {
-              value: 'TreeIV'
-            },
-            title5: {
-              value: 'TreeV'
-            },
-            title6: {
-              value: 'TreeVI'
-            },
-            title7: {
-              value: 'TreeVII'
-            },
-            title8: {
-              value: 'TreeVIII'
-            }
-          }
-        },
-        title3: {
-          value: 'BarChart',
-          children: {
-            title1: {
-              value: 'BarChartI'
-            },
-            title2: {
-              value: 'BarChartII'
-            },
-            title3: {
-              value: 'BarChartAxis'
-            },
-            title4: {
-              value: 'SimpleBarChart'
-            },
-            title5: {
-              value: 'Scale'
-            }
-          }
-        },
-        title4: {
-          value: 'Zoom',
-          children: {
-            title1: {
-              value: 'Zoomable'
-            },
-            title2: {
-              value: 'ZoomableText'
-            }
-          }
-        },
-        title5: {
-          value: 'Force',
-          children: {
-            title1: {
-              value: 'ForceBasedI'
-            },
-            title2: {
-              value: 'ForceBasedII'
-            },
-            title3: {
-              value: 'ForceBasedIII'
-            },
-            title4: {
-              value: 'ForceDirected'
-            },
-            title5: {
-              value: 'ForceLayoutI'
-            },
-            title6: {
-              value: 'ForceLayoutII'
-            },
-            title7: {
-              value: 'ForceLayoutIII'
-            },
-            title8: {
               value: 'D3Network'
             },
-            title9: {
+            title2: {
               value: 'D3Network2'
             }
           }
         },
-        title6: {
-          value: 'Histogram',
+        title2: {
+          value: '信息更新',
           children: {
-            title1: {
-              value: 'HistogramI'
+            title1:{
+              value: 'NodeUpdate'
             },
-            title2: {
-              value: 'HistogramII'
-            },
-            title3: {
-              value: 'HistogramIII'
-            }
           }
         }
       }

@@ -16,7 +16,13 @@
         <span class="content-title">{{ k }}：</span>
         <span class="content-words">{{ v }}</span>
       </div>
+      <div class="content-column">
+        <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
+        <el-button type="primary" @click="nodeDialogVisible = false">关 闭</el-button>
+      </div>
+      <!-- <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="nodeDialogVisible = false">确 定</el-button>
+      </span> -->
     </el-drawer>
 
     <el-dialog title="Link Label" :visible.sync="linkDialogVisible" width="30%" :modal="false">
@@ -36,10 +42,10 @@ export default {
     nodeSize: 30,
     canvas: false,
     linksSelected: 'hello',
-    propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color', 'routeLocation', 'missionTicketFounder'],
+    propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color', 'routeLocation', 'missionTicketFounder', 'autoId'],
     nodeDialogVisible: false,
     linkDialogVisible: false,
-    nodeDetail: {}
+    nodeDetail: {},
   }),
   computed: {
     options() {
@@ -80,13 +86,13 @@ export default {
         c3 = that.rgbRandom(),
         c4 = that.rgbRandom()
       for (let i = 0; i < text.length; i++) {
-        text[i].id = this.getAutoIncrementId()
+        text[i].autoId = this.getAutoIncrementId()
         // 修改text[i].name变为unique id
-        text[i].name = text[i].id
+        text[i].name = text[i].gid
         text[i]._color = c1
         text[i].type = 'ticket'
         let routeLocation = text[i].routeLocation[0]
-        let missionTicketFounder = text[i].missionTicketFounder[0]
+        let missionTicketFounder = text[i].missionTicketFounder[0]  
         routeLocation._color = c2
         routeLocation.type = 'company'
         missionTicketFounder._color = c3
@@ -94,7 +100,7 @@ export default {
 
         // check routeLocation id
         if (!routeLocationMap.has(routeLocation.name)) {
-          routeLocation.id = that.getAutoIncrementId()
+          routeLocation.autoId = that.getAutoIncrementId()
           routeLocationMap.set(routeLocation.name, routeLocation.id)
           newNodes.push(routeLocation)
         } else {
@@ -103,7 +109,7 @@ export default {
 
         //check missionTicketFounder id
         if (!missionTicketFounderMap.has(missionTicketFounder.name)) {
-          missionTicketFounder.id = that.getAutoIncrementId()
+          missionTicketFounder.autoId = that.getAutoIncrementId()
           missionTicketFounderMap.set(missionTicketFounder.name, missionTicketFounder.id)
           newNodes.push(missionTicketFounder)
         } else {
@@ -121,7 +127,6 @@ export default {
           target: missionTicketFounder.name,
           name: '制票人'
         }
-
         newNodes.push(text[i])
         newLinks.push(l1)
         newLinks.push(l2)
@@ -137,13 +142,24 @@ export default {
           nd[k] = node[k] != null ? node[k] : 'NULL'
         }
       }
-      this.nodeDetail = nd
+      this.nodeDetail = nd  
       this.nodeDialogVisible = true
       //   if (node.type == 'ticket') window.console.log(node.descSummary)
       //   else window.console.log(node.name)
     },
     linkClick(link) {
       this.linkDialogVisible = true
+    },
+
+    nodeChangeClick(){
+      let that = this
+      this.$router.push({
+        path: '/examples/NodeUpdate',
+        name: 'NodeUpdate',
+        params: {
+          node : that.nodeDetail
+        }
+      })
     },
 
     graphDraw() {
