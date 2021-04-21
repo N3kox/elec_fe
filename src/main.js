@@ -7,12 +7,14 @@ import base from './base'
 import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
+// import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(VueParticles)
 Vue.use(base)
 Vue.use(element)
 Vue.use(VueResource)
+// Vue.prototype.axios = axios
 
 new Vue({
   router,

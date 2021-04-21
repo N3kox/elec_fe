@@ -50,39 +50,14 @@
       />-->
       <v-spacer />
       <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          text
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-icon>mdi-translate</v-icon>
-          <v-icon small>
-            mdi-chevron-down
-          </v-icon>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item-group
-          v-model="selectedItem"
-          color="primary"
-        >
-          <v-list-item>
-            <v-list-item-title @click="changeLang('en')">English</v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title @click="changeLang('zh')">简体中文</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
     </v-menu>
-      <v-btn icon @click="changeTheme">
+      <!-- <v-btn icon @click="changeTheme">
         <v-icon v-if="!dark">mdi-brightness-7</v-icon>
         <v-icon v-else>mdi-brightness-4</v-icon>
       </v-btn>
       <v-btn icon @click="openTab">
         <v-icon size="28">mdi-github</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-btn icon @click="dialog = true">
         <v-icon size="28">mdi-information-outline</v-icon>
       </v-btn>
@@ -95,9 +70,8 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title primary-title>Vue D3 Examples</v-card-title>
-        <v-card-text>Version: v{{version}}</v-card-text>
-        <v-card-text>Author: YuanWei Guo</v-card-text>
-        <v-card-text>Email: qingyi_w@outlook.com</v-card-text>
+        <v-card-text>Author: Zhaonan Xu</v-card-text>
+        <v-card-text>Email: n3ko@qq.com</v-card-text>
       </v-card>
     </v-dialog>
   </v-app>
@@ -107,7 +81,6 @@
 import packageJson from '../../package.json'
 export default {
   data: () => ({
-    version: 'v0.1.0',
     dialog: false,
     dark: false,
     drawer: null,
@@ -158,31 +131,32 @@ export default {
         //   ],
         //   appendIcon: 'mdi-chevron-down'
         // },
-        {
-          icon: 'mdi-alpha-z-box-outline',
-          title: this.$vuetify.lang.t('$vuetify.sidebar.title4.value'),
-          children: [
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title1.value'), path: '/examples/zoomable' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title2.value'), path: '/examples/zoomabletext' }
-          ],
-          appendIcon: 'mdi-chevron-down'
-        },
+        // {
+        //   icon: 'mdi-alpha-z-box-outline',
+        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title4.value'),
+        //   children: [
+        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title1.value'), path: '/examples/zoomable' },
+        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title2.value'), path: '/examples/zoomabletext' }
+        //   ],
+        //   appendIcon: 'mdi-chevron-down'
+        // },
         {
           icon: 'mdi-alpha-f-box-outline',
-          title: this.$vuetify.lang.t('$vuetify.sidebar.title5.value'),
+          title: this.$vuetify.lang.t('$vuetify.sidebar.title1.value'),
           children: [
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title1.value'), path: '/examples/forcebasedI' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title2.value'), path: '/examples/forcebasedII' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title3.value'), path: '/examples/forcebasedIII' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title4.value'), path: '/examples/forcedirected' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title5.value'), path: '/examples/forcelayoutI' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title6.value'), path: '/examples/forcelayoutII' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title7.value'), path: '/examples/forcelayoutIII' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title8.value'), path: '/examples/D3Network' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title5.children.title9.value'), path: '/examples/D3Network2' }
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/D3Network' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/D3Network2' }
           ],
           appendIcon: 'mdi-chevron-down'
         },
+        {
+          icon: 'mdi-alpha-h-box-outline',
+          title: this.$vuetify.lang.t('$vuetify.sidebar.title2.value'),
+          children: [
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/NodeUpdate' },
+          ],
+          appendIcon: 'mdi-chevron-down'
+        }
         // {
         //   icon: 'mdi-alpha-h-box-outline',
         //   title: this.$vuetify.lang.t('$vuetify.sidebar.title6.value'),
