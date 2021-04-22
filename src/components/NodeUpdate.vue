@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-main v-if="!fromRouter"> nothing to see here </el-main>
+    <el-main v-if="!fromRouter"
+      >nothing to see here
+      
+    </el-main>
     <el-main v-if="fromRouter">
       <div v-for="(v, k) in showNodeDetail" :key="k">
         <el-row>
@@ -9,9 +12,9 @@
           >
           <el-col :span="1"><div class="grid-content bg-white"></div></el-col>
           <el-col :span="8">
-            <div class="grid-content bg-purple-light">
-              <el-input placeholder="请输入内容" v-model="showNodeDetail[k]" clearable />
-              <!-- <el-date-picker v-model="showNodeDetail[v]" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"> </el-date-picker> -->
+            <div class="bg-purple-light">
+              <el-input v-if="timerNameSave.indexOf(k) == -1" placeholder="请输入内容" v-model="showNodeDetail[k]" clearable />
+              <el-date-picker v-else v-model="showNodeDetail[k]" type="datetime" placeholder="选择日期时间" align="right" :format="myDateFormat" :value-format="myDateFormat"/>
             </div>
           </el-col>
         </el-row>
@@ -30,7 +33,8 @@ export default {
     showNodeDetail: {},
     fromRouter: false,
     waitingForUpdateConfirm: false,
-    ticketTimeParser: ['preparedTime', 'timeToStart', 'timeToEnd'],
+    timerNameSave: [],
+    myDateFormat:'yyyy/M/dd HH:mm'
   }),
   methods: {
     navigateBack() {
@@ -47,15 +51,18 @@ export default {
       switch (this.type) {
         case 'ticket': {
           this.waitingForUpdateConfirm = true
+          for(let k in copy)
+            if(copy[k] == 'null') copy[k] = ''
           window.console.log(JSON.stringify(copy))
           // TODO: 修改接口地址
-          this.$http.post(this.patchUrl(`/mission_ticket/update/test`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+          this.$http.post(this.patchUrl(`/mission_ticket/update/test2 ?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
             if (response.body == true) {
               this.$message.success('ok')
               that.waitingForUpdateConfirm = false
               that.navigateBack()
             } else {
               this.$message('failed')
+              that.navigateBack()
             }
           })
           break
@@ -85,23 +92,29 @@ export default {
       let from = this.$route.params.node
       for (let k in from) {
         if (from[k] == 'NULL') from[k] = ''
-        switch(k){
-          case 'gid':{
-            this.gid = from[k];
-            break;
+        switch (k) {
+          case 'gid': {
+            this.gid = from[k]
+            break
           }
-          case 'type':{
-            this.type = from[k];
-            break;
+          case 'type': {
+            this.type = from[k]
+            break
           }
-          case 'preparedTime':{
-            let arr = from[k].split(' ')
-            copy.preparedTime_Date = arr[0];
-            copy.preparedTime_Time = arr[1];
+          case 'preparedTime':
+          case 'timeToStart':
+          case 'timeToEnd': {
+            // let arr = from[k].replace(`/`, `-`) + `:00`;
+            // this.value3 = arr;
+            copy[k] = from[k]
+            this.timerNameSave.push(k)
+            break
+          }
+          case 'name':{
             break;
           }
           // TODO: other time split
-          default:{
+          default: {
             copy[k] = from[k]
             break
           }
@@ -150,7 +163,7 @@ export default {
   position: absolute;
   left: 10px;
   right: 0;
-  top: 60px;
+  top: 10px;
   bottom: 0;
   overflow-y: scroll;
 }

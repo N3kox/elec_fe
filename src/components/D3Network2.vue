@@ -13,8 +13,8 @@
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
       <div class="content-column" v-for="(v, k) in nodeDetail">
-        <span>{{ k }}：</span>
-        <span>{{ v }}</span>
+        <span class="content-title">{{ k }}：</span>
+        <span class="content-words">{{ v }}</span>
       </div>
       <div class="content-column">
         <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
@@ -175,7 +175,7 @@ export default {
         return d.name
       })
 
-      let chargeForce = d3.forceManyBody().strength(-200)
+      let chargeForce = d3.forceManyBody().strength(-150)
       let centerForce = d3.forceCenter(width / 2, height / 2)
 
       simulation.force('chargeForce', chargeForce).force('centerForce', centerForce).force('links', linkForce)
@@ -290,7 +290,7 @@ export default {
         return 0
       }
     }
-  },
+  },  
   mounted() {
     let that = this
     new Promise((resolve, reject) => {
