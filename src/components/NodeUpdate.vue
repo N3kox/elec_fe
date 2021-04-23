@@ -55,14 +55,14 @@ export default {
             if(copy[k] == 'null') copy[k] = ''
           window.console.log(JSON.stringify(copy))
           // TODO: 修改接口地址
-          this.$http.post(this.patchUrl(`/mission_ticket/update/test2 ?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+          this.$http.post(this.patchUrl(`/mission_ticket/update/test2?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
             if (response.body == true) {
               this.$message.success('ok')
               that.waitingForUpdateConfirm = false
               that.navigateBack()
             } else {
-              this.$message('failed')
-              that.navigateBack()
+              this.$message.error('更新ticket失败, 请重试')
+              that.waitingForUpdateConfirm = false;
             }
           })
           break
@@ -72,8 +72,22 @@ export default {
           this.navigateBack()
           break
         }
-        case 'company': {
+        case 'route': {
           // TODO: 修改接口地址
+          let that = this
+          this.waitingForUpdateConfirm = true;
+          for(let k in copy)
+            if(copy[k] == 'null') copy[k] = ''
+          this.$http.post(this.patchUrl(`/route_location/update?id=${this.gid}`), JSON.stringify(copy), {emulateJSON: true}).then((response)=>{
+            if(response.body == true){
+              this.$message.success("ok")
+              that.waitingForUpdateConfirm = false
+              that.navigateBack()
+            }else{
+              this.$message.error("更新RouteLocation失败，请重试")
+              that.waitingForUpdateConfirm = false
+            }
+          })
           break
         }
         default: {
@@ -93,12 +107,13 @@ export default {
       for (let k in from) {
         if (from[k] == 'NULL') from[k] = ''
         switch (k) {
-          case 'gid': {
+          case 'id': {
             this.gid = from[k]
             break
           }
           case 'type': {
             this.type = from[k]
+            window.console.log(from[k])
             break
           }
           case 'preparedTime':
