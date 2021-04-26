@@ -11,7 +11,7 @@ exports.install = function(Vue){
         return JSON.parse(localStorage.getItem(key));
     }
     Vue.prototype.JgetAndDelete = function(key){
-        val = localStorage.getItem(key);
+        let val = localStorage.getItem(key);
         localStorage.removeItem(key);
         return JSON.parse(val);
     }
