@@ -75,61 +75,21 @@ export default {
       return 'rgb(' + a + ', ' + b + ', ' + c + ')'
     },
     parseMissionTicketStop(text) {
+      window.console.log(text)
       let that = this
+      let companyMap = new Map()
+      let countryMap = new Map()
+      let deviceManufactorMap = new Map()
+      let deviceTypeCodeMap = new Map()
+      let deviceTypeMap = new Map()
       let routeLocationMap = new Map()
-      let missionTicketFounderMap = new Map()
+      let staffEntitiesMap = new Map()
+
       let newNodes = []
       let newLinks = []
 
-      let c1 = that.rgbRandom(),
-        c2 = that.rgbRandom(),
-        c3 = that.rgbRandom(),
-        c4 = that.rgbRandom()
       for (let i = 0; i < text.length; i++) {
-        text[i].autoId = this.getAutoIncrementId()
-        // 修改text[i].name变为unique id
-        text[i].name = text[i].gid
-        text[i]._color = c1
-        text[i].type = 'ticket'
-        let routeLocation = text[i].routeLocation[0]
-        let missionTicketFounder = text[i].missionTicketFounder[0]  
-        routeLocation._color = c2
-        routeLocation.type = 'route'
-        missionTicketFounder._color = c3
-        missionTicketFounder.type = 'staff'
-
-        // check routeLocation id
-        if (!routeLocationMap.has(routeLocation.name)) {
-          routeLocation.autoId = that.getAutoIncrementId()
-          routeLocationMap.set(routeLocation.name, routeLocation.id)
-          newNodes.push(routeLocation)
-        } else {
-          routeLocation.id = routeLocationMap.get(routeLocation.name)
-        }
-
-        //check missionTicketFounder id
-        if (!missionTicketFounderMap.has(missionTicketFounder.name)) {
-          missionTicketFounder.autoId = that.getAutoIncrementId()
-          missionTicketFounderMap.set(missionTicketFounder.name, missionTicketFounder.id)
-          newNodes.push(missionTicketFounder)
-        } else {
-          missionTicketFounder.id = missionTicketFounderMap.get(missionTicketFounder.name)
-        }
-        //create links
-        let l1 = {
-          source: text[i].name,
-          target: routeLocation.name,
-          name: '站线名称'
-        }
-
-        let l2 = {
-          source: text[i].name,
-          target: missionTicketFounder.name,
-          name: '制票人'
-        }
-        newNodes.push(text[i])
-        newLinks.push(l1)
-        newLinks.push(l2)
+        
       }
       this.nodes = newNodes
       this.links = newLinks
@@ -294,7 +254,7 @@ export default {
   mounted() {
     let that = this
     new Promise((resolve, reject) => {
-      that.$http.get(this.patchUrl(`/mission_ticket/stop?val=true`)).then((response) => {
+      that.$http.get(this.patchUrl(`/device/all`)).then((response) => {
         if ((response.data = null || response.ok == false)) {
           that.$message.error('Error')
         } else {

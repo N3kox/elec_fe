@@ -28,9 +28,14 @@ export default new Router({
           component: () => import('./components/D3Network.vue')
         },
         {
-          path: '/examples/D3Network2',
-          name: 'D3Network2',
-          component: () => import('./components/D3Network2.vue')
+          path: '/examples/MissionTicketView',
+          name: 'MissionTicketView',
+          component: () => import('./components/MissionTicketView.vue')
+        },
+        {
+          path: '/examples/DeviceOverview',
+          name: 'DeviceOverview',
+          component: () => import('./components/DeviceOverview.vue')
         },
         {
           path: '/examples/NodeUpdate',
