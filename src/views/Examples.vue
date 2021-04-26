@@ -91,79 +91,20 @@ export default {
   computed: {
     items: function () {
       return [
-        // {
-        //   icon: 'mdi-alpha-a-box-outline',
-        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title1.value'),
-        //   children: [
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/helloworld' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/updateenterexit' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title3.value'), path: '/examples/generalupdatepattern' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title4.value'), path: '/examples/selectelementbinddata' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title5.value'), path: '/examples/selectinsertremove' }
-        //   ],
-        //   appendIcon: 'mdi-chevron-down',
-        //   active: true
-        // },
-        // {
-        //   icon: 'mdi-alpha-t-box-outline',
-        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title2.value'),
-        //   children: [
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title1.value'), path: '/examples/treeI' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title2.value'), path: '/examples/treeII' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title3.value'), path: '/examples/treeIII' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title4.value'), path: '/examples/treeIV' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title5.value'), path: '/examples/treeV' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title6.value'), path: '/examples/treeVI' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title7.value'), path: '/examples/treeVII' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title2.children.title8.value'), path: '/examples/treeVIII' }
-        //   ],
-        //   appendIcon: 'mdi-chevron-down'
-        // },
-        // {
-        //   icon: 'mdi-alpha-b-box-outline',
-        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title3.value'),
-        //   children: [
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title3.children.title1.value'), path: '/examples/barchartI' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title3.children.title2.value'), path: '/examples/barchartII' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title3.children.title3.value'), path: '/examples/axis' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title3.children.title4.value'), path: '/examples/simplebarchart' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title3.children.title5.value'), path: '/examples/scale' }
-        //   ],
-        //   appendIcon: 'mdi-chevron-down'
-        // },
-        // {
-        //   icon: 'mdi-alpha-z-box-outline',
-        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title4.value'),
-        //   children: [
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title1.value'), path: '/examples/zoomable' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title4.children.title2.value'), path: '/examples/zoomabletext' }
-        //   ],
-        //   appendIcon: 'mdi-chevron-down'
-        // },
         {
           icon: 'mdi-alpha-f-box-outline',
           title: this.$vuetify.lang.t('$vuetify.sidebar.title1.value'),
           children: [
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/D3Network' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/D3Network2' }
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/MissionTicketView' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/DeviceOverview' },
           ],
           appendIcon: 'mdi-chevron-down'
         },
-        {
-          icon: 'mdi-alpha-h-box-outline',
-          title: this.$vuetify.lang.t('$vuetify.sidebar.title2.value'),
-          children: [
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/NodeUpdate' },
-          ],
-          appendIcon: 'mdi-chevron-down'
-        }
         // {
         //   icon: 'mdi-alpha-h-box-outline',
-        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title6.value'),
+        //   title: this.$vuetify.lang.t('$vuetify.sidebar.title2.value'),
         //   children: [
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title6.children.title1.value'), path: '/examples/histogramI' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title6.children.title2.value'), path: '/examples/histogramII' },
-        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title6.children.title3.value'), path: '/examples/histogramIII' }
+        //     { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/NodeUpdate' },
         //   ],
         //   appendIcon: 'mdi-chevron-down'
         // }

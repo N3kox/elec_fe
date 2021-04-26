@@ -16,24 +16,24 @@ const messages = {
       examplesButton: 'Enter',
       sidebar: {
         title1: {
-          value: '信息查询',
+          value: 'SearchView',
           children: {
             title1: {
-              value: 'D3Network'
+              value: 'MissionTicketView'
             },
             title2: {
-              value: 'D3Network2'
+              value: 'DeviceOverview'
             }
           }
         },
-        title2: {
-          value: '信息更新',
-          children: {
-            title1:{
-              value: 'NodeUpdate'
-            },
-          }
-        }
+        // title2: {
+        //   value: '信息更新',
+        //   children: {
+        //     title1:{
+        //       value: 'NodeUpdate'
+        //     },
+        //   }
+        // }
       }
     }
   },

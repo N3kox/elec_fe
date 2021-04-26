@@ -53,9 +53,9 @@ export default {
           this.waitingForUpdateConfirm = true
           for(let k in copy)
             if(copy[k] == 'null') copy[k] = ''
-          window.console.log(JSON.stringify(copy))
+          // window.console.log(JSON.stringify(copy))
           // TODO: 修改接口地址
-          this.$http.post(this.patchUrl(`/mission_ticket/update/test2?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+          this.$http.put(this.patchUrl(`/mission_ticket/update/test2?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
             if (response.body == true) {
               this.$message.success('ok')
               that.waitingForUpdateConfirm = false
@@ -78,7 +78,7 @@ export default {
           this.waitingForUpdateConfirm = true;
           for(let k in copy)
             if(copy[k] == 'null') copy[k] = ''
-          this.$http.post(this.patchUrl(`/route_location/update?id=${this.gid}`), JSON.stringify(copy), {emulateJSON: true}).then((response)=>{
+          this.$http.put(this.patchUrl(`/route_location/update?id=${this.gid}`), JSON.stringify(copy), {emulateJSON: true}).then((response)=>{
             if(response.body == true){
               this.$message.success("ok")
               that.waitingForUpdateConfirm = false
@@ -104,10 +104,16 @@ export default {
     } else {
       let copy = {}
       let from = this.$route.params.node
+      // window.console.log(from)
       for (let k in from) {
         if (from[k] == 'NULL') from[k] = ''
         switch (k) {
-          case 'id': {
+          case 'gid': {
+            this.gid = from[k]
+            // window.console.log(this.gid)
+            break
+          }
+          case 'id' :{
             this.gid = from[k]
             break
           }
