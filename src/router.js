@@ -28,9 +28,9 @@ export default new Router({
           component: () => import('./components/D3Network.vue')
         },
         {
-          path: '/examples/MissionTicketView',
-          name: 'MissionTicketView',
-          component: () => import('./components/MissionTicketView.vue')
+          path: '/examples/MissionTicketOverview',
+          name: 'MissionTicketOverview',
+          component: () => import('./components/MissionTicketOverview.vue')
         },
         {
           path: '/examples/DeviceOverview',
@@ -41,7 +41,12 @@ export default new Router({
           path: '/examples/NodeUpdate',
           name: 'NodeUpdate',
           component: () => import('./components/NodeUpdate.vue')
-        }
+        },
+        {
+          path: '/examples/SearchView',
+          name: 'SearchView',
+          component: () => import('./components/SearchView.vue')
+        },
       ]
     },
     {

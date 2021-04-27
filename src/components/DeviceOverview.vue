@@ -25,7 +25,7 @@
       </span> -->
     </el-drawer>
 
-    <el-dialog title="Link Label" :visible.sync="linkDialogVisible" width="30%" :modal="false">
+    <el-dialog title="Link Label" :visible.sync="linkDialogVisible" width="30%" :modal="false" >
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="linkDialogVisible = false">确 定</el-button>
       </span>
@@ -46,6 +46,8 @@ export default {
     nodeDialogVisible: false,
     linkDialogVisible: false,
     nodeDetail: {},
+    fullMap: new Map(),
+
   }),
   computed: {
     options() {
@@ -74,22 +76,166 @@ export default {
       let c = Math.floor(Math.random() * 255)
       return 'rgb(' + a + ', ' + b + ', ' + c + ')'
     },
+    objectIsEmpty(obj){
+      for(let k in obj)
+        return false
+      return true;
+    },
     parseMissionTicketStop(text) {
-      window.console.log(text)
+      // window.console.log(text)
       let that = this
-      let companyMap = new Map()
-      let countryMap = new Map()
-      let deviceManufactorMap = new Map()
-      let deviceTypeCodeMap = new Map()
-      let deviceTypeMap = new Map()
-      let routeLocationMap = new Map()
-      let staffEntitiesMap = new Map()
-
+      let idMap = new Map()
+      let idSet = new Set()
       let newNodes = []
       let newLinks = []
 
       for (let i = 0; i < text.length; i++) {
-        
+        let item = text[i];
+        let deviceName = item.name
+        let device = {}
+        device.type = 'device'
+        for(let k in item){
+          if(typeof(item[k]) == 'string'){
+            device[k] = item[k]
+            continue;
+          }
+          let ce = item[k][0]
+          if(this.objectIsEmpty(ce)) continue;
+          switch(k){
+            case 'companyEntities':{
+              let company = {}
+              company.type = 'company'
+              company.id = ce.gid
+              company.gid = ce.gid
+              company.name = ce.name
+              newLinks.push({
+                source : deviceName,
+                target : company.name,
+                name : '维护公司'
+              })
+              if(idSet.has(company.id) == false)
+                newNodes.push(company)
+              idSet.add(ce.gid)
+              idMap.set(company.gid, company)
+              break;
+            }
+            case 'classEntities':{
+              let classEntity = this.deepCopy(ce)
+              classEntity.type = 'class'
+              classEntity.id = ce.gid
+              classEntity.name = ce.className
+              newLinks.push({
+                source : deviceName,
+                target : classEntity.name,
+                name : '维护班组'
+              })
+              if(idSet.has(classEntity.id) == false)
+                newNodes.push(classEntity)
+              idSet.add(ce.gid)
+              idMap.set(classEntity.gid, classEntity)
+              break;
+            }
+            case 'deviceTypeCodeEntities':{
+              let deviceTypeCode = this.deepCopy(ce)
+              deviceTypeCode.type = "deviceType"
+              deviceTypeCode.id = ce.gid
+              deviceTypeCode.name = ce.typeCode
+              newLinks.push({
+                source : deviceName,
+                target : deviceTypeCode.name,
+                name : '设备编号'
+              })
+              if(idSet.has(deviceTypeCode.id) == false)
+                newNodes.push(deviceTypeCode)
+              idSet.add(ce.gid)
+              idMap.set(deviceTypeCode.gid, deviceTypeCode)
+              break;
+            }
+            case 'countryEntities':{
+              let country = this.deepCopy(ce)
+              country.type = "country"
+              country.id = ce.gid
+              newLinks.push({
+                source : deviceName,
+                target : country.name,
+                name : '生产国家'
+              })
+              if(idSet.has(country.id) == false)
+                newNodes.push(country)
+              idSet.add(ce.gid)
+              idMap.set(country.gid, country)
+              break;
+            }
+            case 'deviceTypeEntities':{
+              let deviceType = this.deepCopy(ce)
+              deviceType.type = "deviceType"
+              deviceType.id = ce.gid
+              deviceType.name = ce.deviceTypeName
+              newLinks.push({
+                source : deviceName,
+                target : deviceType.name,
+                name : '设备类型'
+              })
+              if(idSet.has(deviceType.id) == false)
+                newNodes.push(deviceType)
+              idSet.add(ce.gid)
+              idMap.set(deviceType.gid, deviceType)
+              break;
+            }
+            case 'routeLocationEntities':{
+              let routeLocation = this.deepCopy(ce)
+              routeLocation.type = "routeLocation"
+              routeLocation.id = ce.gid
+              routeLocation.name = ce.name
+              newLinks.push({
+                source : deviceName,
+                target : routeLocation.name,
+                name : '线路名称'
+              })
+              if(idSet.has(routeLocation.id) == false)
+                newNodes.push(routeLocation)
+              idSet.add(ce.gid)
+              idMap.set(routeLocation.gid, routeLocation)
+              break;
+            }
+            case 'deviceManufactorEntities':{
+              let deviceManufactor = this.deepCopy(ce)
+              deviceManufactor.type = "deviceManufactor"
+              deviceManufactor.id = ce.gid
+              newLinks.push({
+                source : deviceName,
+                target : deviceManufactor.name,
+                name : '设备制造商'
+              })
+              if(idSet.has(deviceManufactor.id) == false)
+                newNodes.push(deviceManufactor)
+              idSet.add(ce.gid)
+              idMap.set(deviceManufactor.gid, deviceManufactor)
+              break;
+            }
+            case 'staffEntities':{
+              // window.conosle.log(item[k])
+              for(let st in item[k]){
+                // window.console.log(item[k][st])
+                let staff = this.deepCopy(item[k][st])
+                staff.id = st.gid
+                staff.name = st.name
+                newLinks.push({
+                  source : deviceName,
+                  target : staff.name,
+                  name : '设备制造商'
+                })
+                if(idSet.has(staff.id) == false)
+                  newNodes.push(staff)
+                // newNodes.push(staff)
+                idSet.add(st.gid)
+                idMap.set(staff.gid, staff)
+              }
+              break;
+            }
+          }
+        }
+        newNodes.unshift(device);
       }
       this.nodes = newNodes
       this.links = newLinks
@@ -135,7 +281,7 @@ export default {
         return d.name
       })
 
-      let chargeForce = d3.forceManyBody().strength(-150)
+      let chargeForce = d3.forceManyBody().strength(-300)
       let centerForce = d3.forceCenter(width / 2, height / 2)
 
       simulation.force('chargeForce', chargeForce).force('centerForce', centerForce).force('links', linkForce)
@@ -180,9 +326,23 @@ export default {
       /** Functions **/
 
       function circleColour(d) {
-        if (d.type == 'ticket') return 'red'
-        else if (d.type == 'staff') return 'green'
-        return 'blue'
+        switch(d.type){
+          case 'device':
+            return '#FAEBD7'
+          case 'staff':
+            return '#FF7F50'
+          case 'class':
+            return '#6495ED'
+          case 'deviceType':
+            return '#6495ED'
+          case 'deviceCode':
+            return '#9932CC'
+          case 'deviceManufactor':
+            return '#8FBC8F'
+          case 'routeLocation':
+            return '#FFD700'
+        }
+        return '#E6E6FA'
       }
 
       function linkColour(d) {
@@ -335,4 +495,10 @@ ul.menu li {
   margin-left: 5px;
   color: #9a9a9a;
 }
+
+
+.el-drawer.rtl{
+    overflow: scroll;
+}
+
 </style>

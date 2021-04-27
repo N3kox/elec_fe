@@ -2,7 +2,7 @@
   <div>
     <h2>D3 Hello World</h2>
     <p></p>
-    <p></p>
+    <!-- <p></p> -->
     <h2>D3 Example Address</h2>
     <div>
       <a target="_blank" href="http://bl.ocks.org/tgk/6068367">Add and remove nodes</a>
