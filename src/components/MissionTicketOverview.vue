@@ -12,7 +12,7 @@
     </el-dialog> -->
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
-      <div class="content-column" v-for="(v, k) in nodeDetail">
+      <div class="content-column" v-for="(v, k) in nodeDetail" :key="v.gid">
         <span>{{ k }}：</span>
         <span>{{ v }}</span>
       </div>

@@ -7,14 +7,16 @@ import base from './base'
 import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueResource from 'vue-resource'
-// import axios from 'axios'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(VueParticles)
 Vue.use(base)
 Vue.use(element)
 Vue.use(VueResource)
-// Vue.prototype.axios = axios
+Vue.prototype.$axios = axios
+axios.defaults.baseURL="/query"
+axios.defaults.headers.get['Content-Type'] = 'application/json';
 
 new Vue({
   router,
