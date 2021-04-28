@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-main v-if="!fromRouter"
-      >nothing to see here
-      
-    </el-main>
+    <el-main v-if="!fromRouter">nothing to see here </el-main>
     <el-main v-if="fromRouter">
       <div v-for="(v, k) in showNodeDetail" :key="k">
         <el-row>
@@ -14,7 +11,7 @@
           <el-col :span="8">
             <div class="bg-purple-light">
               <el-input v-if="timerNameSave.indexOf(k) == -1" placeholder="请输入内容" v-model="showNodeDetail[k]" clearable />
-              <el-date-picker v-else v-model="showNodeDetail[k]" type="datetime" placeholder="选择日期时间" align="right" :format="myDateFormat" :value-format="myDateFormat"/>
+              <el-date-picker v-else v-model="showNodeDetail[k]" type="datetime" placeholder="选择日期时间" align="right" :format="myDateFormat" :value-format="myDateFormat" />
             </div>
           </el-col>
         </el-row>
@@ -34,7 +31,7 @@ export default {
     fromRouter: false,
     waitingForUpdateConfirm: false,
     timerNameSave: [],
-    myDateFormat:'yyyy/M/dd HH:mm'
+    myDateFormat: 'yyyy/M/dd HH:mm'
   }),
   methods: {
     navigateBack() {
@@ -51,8 +48,7 @@ export default {
       switch (this.type) {
         case 'ticket': {
           this.waitingForUpdateConfirm = true
-          for(let k in copy)
-            if(copy[k] == 'null') copy[k] = ''
+          for (let k in copy) if (copy[k] == 'null') copy[k] = ''
           // window.console.log(JSON.stringify(copy))
           // TODO: 修改接口地址
           this.$http.put(this.patchUrl(`/mission_ticket/update/test2?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
@@ -62,7 +58,7 @@ export default {
               that.navigateBack()
             } else {
               this.$message.error('更新ticket失败, 请重试')
-              that.waitingForUpdateConfirm = false;
+              that.waitingForUpdateConfirm = false
             }
           })
           break
@@ -75,16 +71,15 @@ export default {
         case 'route': {
           // TODO: 修改接口地址
           let that = this
-          this.waitingForUpdateConfirm = true;
-          for(let k in copy)
-            if(copy[k] == 'null') copy[k] = ''
-          this.$http.put(this.patchUrl(`/route_location/update?id=${this.gid}`), JSON.stringify(copy), {emulateJSON: true}).then((response)=>{
-            if(response.body == true){
-              this.$message.success("ok")
+          this.waitingForUpdateConfirm = true
+          for (let k in copy) if (copy[k] == 'null') copy[k] = ''
+          this.$http.put(this.patchUrl(`/route_location/update?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+            if (response.body == true) {
+              this.$message.success('ok')
               that.waitingForUpdateConfirm = false
               that.navigateBack()
-            }else{
-              this.$message.error("更新RouteLocation失败，请重试")
+            } else {
+              this.$message.error('更新RouteLocation失败，请重试')
               that.waitingForUpdateConfirm = false
             }
           })
@@ -113,7 +108,7 @@ export default {
             // window.console.log(this.gid)
             break
           }
-          case 'id' :{
+          case 'id': {
             this.gid = from[k]
             break
           }
@@ -131,8 +126,8 @@ export default {
             this.timerNameSave.push(k)
             break
           }
-          case 'name':{
-            break;
+          case 'name': {
+            break
           }
           // TODO: other time split
           default: {
