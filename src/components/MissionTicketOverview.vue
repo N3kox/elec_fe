@@ -45,7 +45,7 @@ export default {
     propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color', 'routeLocation', 'missionTicketFounder', 'autoId'],
     nodeDialogVisible: false,
     linkDialogVisible: false,
-    nodeDetail: {},
+    nodeDetail: {}
   }),
   computed: {
     options() {
@@ -92,7 +92,7 @@ export default {
         text[i]._color = c1
         text[i].type = 'ticket'
         let routeLocation = text[i].routeLocation[0]
-        let missionTicketFounder = text[i].missionTicketFounder[0]  
+        let missionTicketFounder = text[i].missionTicketFounder[0]
         routeLocation._color = c2
         routeLocation.type = 'route'
         missionTicketFounder._color = c3
@@ -142,7 +142,7 @@ export default {
           nd[k] = node[k] != null ? node[k] : 'NULL'
         }
       }
-      this.nodeDetail = nd  
+      this.nodeDetail = nd
       this.nodeDialogVisible = true
       //   if (node.type == 'ticket') window.console.log(node.descSummary)
       //   else window.console.log(node.name)
@@ -151,13 +151,13 @@ export default {
       this.linkDialogVisible = true
     },
 
-    nodeChangeClick(){
+    nodeChangeClick() {
       let that = this
       this.$router.push({
         path: '/examples/NodeUpdate',
         name: 'NodeUpdate',
         params: {
-          node : that.nodeDetail
+          node: that.nodeDetail
         }
       })
     },
@@ -171,14 +171,17 @@ export default {
 
       // set up the simulation and add forces
       let simulation = d3.forceSimulation().nodes(this.nodes)
-      let linkForce = d3.forceLink(this.links).id(function (d) {
+      let linkForce = d3.forceLink(this.links).id(function(d) {
         return d.name
       })
 
       let chargeForce = d3.forceManyBody().strength(-150)
       let centerForce = d3.forceCenter(width / 2, height / 2)
 
-      simulation.force('chargeForce', chargeForce).force('centerForce', centerForce).force('links', linkForce)
+      simulation
+        .force('chargeForce', chargeForce)
+        .force('centerForce', centerForce)
+        .force('links', linkForce)
 
       // add tick instructions:
       simulation.on('tick', tickActions)
@@ -187,10 +190,28 @@ export default {
       let g = svg.append('g').attr('class', 'everything')
 
       // draw lines for the links
-      let link = g.append('g').attr('class', 'links').selectAll('line').data(this.links).enter().append('line').attr('stroke-width', 2).style('stroke', linkColour).on('click', this.linkClick)
+      let link = g
+        .append('g')
+        .attr('class', 'links')
+        .selectAll('line')
+        .data(this.links)
+        .enter()
+        .append('line')
+        .attr('stroke-width', 2)
+        .style('stroke', linkColour)
+        .on('click', this.linkClick)
 
       // draw circles for the nodes
-      let node = g.append('g').attr('class', 'nodes').selectAll('circle').data(this.nodes).enter().append('circle').attr('r', radius).attr('fill', circleColour).on('click', this.nodeClick)
+      let node = g
+        .append('g')
+        .attr('class', 'nodes')
+        .selectAll('circle')
+        .data(this.nodes)
+        .enter()
+        .append('circle')
+        .attr('r', radius)
+        .attr('fill', circleColour)
+        .on('click', this.nodeClick)
 
       let labelNode = g
         .append('g')
@@ -199,7 +220,7 @@ export default {
         .data(this.nodes)
         .enter()
         .append('text')
-        .text(function (d) {
+        .text(function(d) {
           if (d.type == 'ticket') return d.descSummary
           return d.name
         })
@@ -208,7 +229,11 @@ export default {
         .style('font-size', 16)
         .style('pointer-events', 'none')
 
-      let dragHandler = d3.drag().on('start', dragStart).on('drag', dragDrag).on('end', dragEnd)
+      let dragHandler = d3
+        .drag()
+        .on('start', dragStart)
+        .on('drag', dragDrag)
+        .on('end', dragEnd)
 
       dragHandler(node)
 
@@ -257,31 +282,31 @@ export default {
       function tickActions() {
         // update circle positions each tick of the simulation
         node
-          .attr('cx', function (d) {
+          .attr('cx', function(d) {
             return d.x
           })
-          .attr('cy', function (d) {
+          .attr('cy', function(d) {
             return d.y
           })
 
         // update link positions
         link
-          .attr('x1', function (d) {
+          .attr('x1', function(d) {
             return d.source.x
           })
-          .attr('y1', function (d) {
+          .attr('y1', function(d) {
             return d.source.y
           })
-          .attr('x2', function (d) {
+          .attr('x2', function(d) {
             return d.target.x
           })
-          .attr('y2', function (d) {
+          .attr('y2', function(d) {
             return d.target.y
           })
         labelNode.call(updateNode)
       }
       function updateNode(node) {
-        node.attr('transform', function (d) {
+        node.attr('transform', function(d) {
           return 'translate(' + fixna(d.x) + ',' + fixna(d.y) + ')'
         })
       }
@@ -290,19 +315,26 @@ export default {
         return 0
       }
     }
-  },  
+  },
   mounted() {
     let that = this
-    new Promise((resolve, reject) => {
-      that.$http.get(this.patchUrl(`/mission_ticket/all`)).then((response) => {
-        if ((response.data == null || response.ok == false)) {
-          that.$message.error('Error')
-        } else {
-          that.parseMissionTicketStop(JSON.parse(response.bodyText))
-          that.graphDraw()
-        }
+    if (this.$route.params.data == undefined) {
+      new Promise((resolve, reject) => {
+        that.$http.get(this.patchUrl(`/mission_ticket/all`)).then((response) => {
+          if (response.data == null || response.ok == false) {
+            that.$message.error('Error')
+          } else {
+            that.parseMissionTicketStop(JSON.parse(response.bodyText))
+            that.graphDraw()
+          }
+        })
       })
-    })
+    }else{
+      this.$message.success("查询成功")
+      let data = this.$route.params.data
+      that.parseMissionTicketStop(data)
+      that.graphDraw()
+    }
   }
 }
 </script>
@@ -360,7 +392,7 @@ ul.menu li {
   font-weight: 400;
   color: black;
   float: left;
-  opacity: 0.7;;
+  opacity: 0.7;
 }
 
 .content-words {

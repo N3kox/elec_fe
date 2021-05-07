@@ -444,7 +444,7 @@ export default {
       let data = this.$route.params.data
       that.parseMissionTicketStop(data)
       that.graphDraw()
-      that.$message.success("查询ok")
+      this.$message.success("查询成功")
     }
   }
 }
