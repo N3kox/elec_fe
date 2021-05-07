@@ -12,7 +12,7 @@
     </el-dialog> -->
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
-      <div class="content-column" v-for="(v, k) in nodeDetail">
+      <div class="content-column" v-for="(v, k) in nodeDetail" :key="v.gid">
         <span>{{ k }}：</span>
         <span>{{ v }}</span>
       </div>
@@ -295,7 +295,7 @@ export default {
     let that = this
     new Promise((resolve, reject) => {
       that.$http.get(this.patchUrl(`/mission_ticket/all`)).then((response) => {
-        if ((response.data = null || response.ok == false)) {
+        if ((response.data == null || response.ok == false)) {
           that.$message.error('Error')
         } else {
           that.parseMissionTicketStop(JSON.parse(response.bodyText))

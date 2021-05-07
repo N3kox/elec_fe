@@ -19,10 +19,13 @@ const messages = {
           value: 'SearchView',
           children: {
             title1: {
-              value: 'MissionTicketView'
+              value: 'MissionTicketOverview'
             },
             title2: {
               value: 'DeviceOverview'
+            },
+            title3: {
+              value: 'SearchView'
             }
           }
         },

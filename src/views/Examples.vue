@@ -95,8 +95,9 @@ export default {
           icon: 'mdi-alpha-f-box-outline',
           title: this.$vuetify.lang.t('$vuetify.sidebar.title1.value'),
           children: [
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/MissionTicketView' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/MissionTicketOverview' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/DeviceOverview' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title3.value'), path: '/examples/SearchView' },
           ],
           appendIcon: 'mdi-chevron-down'
         },
