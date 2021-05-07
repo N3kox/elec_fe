@@ -26,6 +26,9 @@ const messages = {
             },
             title3: {
               value: 'SearchView'
+            },
+            title4: {
+              value: 'TermSearch'
             }
           }
         },

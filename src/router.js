@@ -47,6 +47,11 @@ export default new Router({
           name: 'SearchView',
           component: () => import('./components/SearchView.vue')
         },
+        {
+          path: '/examples/TermSearch',
+          name: 'TermSearch',
+          component: () => import('./components/TermSearch.vue')
+        },
       ]
     },
     {
