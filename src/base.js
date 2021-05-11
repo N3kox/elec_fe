@@ -18,4 +18,8 @@ exports.install = function(Vue){
     Vue.prototype.deepCopy = function(obj){
         return JSON.parse(JSON.stringify(obj));
     }
+    Vue.prototype.getNameMap = function(){
+        let jsonData = require('./assets/json/name_map.json')
+        return jsonData
+    }
 }

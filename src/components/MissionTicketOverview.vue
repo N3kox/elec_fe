@@ -13,8 +13,8 @@
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
       <div class="content-column" v-for="(v, k) in nodeDetail" :key="v.gid">
-        <span>{{ k }}：</span>
-        <span>{{ v }}</span>
+        <span v-if="notInStopList(k)">{{getAnoName(k)}} : &nbsp;</span>
+        <span v-if="notInStopList(k)">{{ v }}</span>
       </div>
       <div class="content-column">
         <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
@@ -45,7 +45,8 @@ export default {
     propertiesStopList: ['x', 'y', 'fx', 'fy', 'vx', 'vy', '_color', 'routeLocation', 'missionTicketFounder', 'autoId'],
     nodeDialogVisible: false,
     linkDialogVisible: false,
-    nodeDetail: {}
+    nodeDetail: {},
+    nameMap:{},
   }),
   computed: {
     options() {
@@ -60,6 +61,16 @@ export default {
     }
   },
   methods: {
+    notInStopList(name){
+      if(name == 'gid') return false;
+      else if(name == 'type') return false;
+      else if(name == 'index') return false;
+      return true;
+    },
+    getAnoName(name){
+      if(this.nameMap[name] != undefined) return this.nameMap[name]
+      return name
+    },
     handleClose(done) {
       this.nodeDialogVisible = false
       this.linkDialogVisible = false
@@ -318,6 +329,7 @@ export default {
   },
   mounted() {
     let that = this
+    this.nameMap = this.getNameMap();
     if (this.$route.params.data == undefined) {
       new Promise((resolve, reject) => {
         that.$http.get(this.patchUrl(`/mission_ticket/all`)).then((response) => {
@@ -339,7 +351,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body {
   font-family: 'Courier New', Courier, monospace;
   background-color: rgb(231, 23, 23);

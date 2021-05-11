@@ -18,7 +18,7 @@
           <div v-for="num in deviceSelections.length" :key="num" style="padding: 5px">
             属性{{ num }}:
             <el-select v-model="deviceSelections[num - 1].key" placeholder="请选择" @change="change1">
-              <el-option v-for="item in deviceOptions" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option v-for="item in deviceOptions" :key="item.value" :label="getAnoName(item.label)" :value="item.value" />
             </el-select>
             <el-input style="margin-left: 80px; width: 300px" v-model="deviceSelections[num - 1].val"></el-input>
           </div>
@@ -34,7 +34,7 @@
           <div v-for="num in ticketSelections.length" :key="num" style="padding: 5px">
             属性{{ num }}:
             <el-select v-model="ticketSelections[num - 1].key" placeholder="请选择">
-              <el-option v-for="item in ticketOptions" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option v-for="item in ticketOptions" :key="item.value" :label="getAnoName(item.label)" :value="item.value" />
             </el-select>
             <el-input style="margin-left: 80px; width: 300px" v-model="ticketSelections[num - 1].val"></el-input>
           </div>
@@ -59,9 +59,19 @@ export default {
     ticketOptions: [],
     deviceSelections: [],
     ticketSelections: [],
-
+    nameMap : {},
   }),
   methods: {
+    notInStopList(name){
+      if(name == 'gid') return false;
+      else if(name == 'type') return false;
+      else if(name == 'index') return false;
+      return true;
+    },
+    getAnoName(name){
+      if(this.nameMap[name] != undefined) return this.nameMap[name]
+      return name
+    },
     navigateBack() {
       let that = this
       setTimeout(() => {
@@ -215,6 +225,7 @@ export default {
   },
   mounted() {
     let that = this
+    this.nameMap = this.getNameMap()
     this.$http.get(this.patchUrl(`/device/get_properties`)).then((response) => {
       if (response.data == null || response.ok == false) {
         that.$message.error('loading device properties error')
@@ -234,7 +245,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .el-row {
   margin-bottom: 20px;
 }

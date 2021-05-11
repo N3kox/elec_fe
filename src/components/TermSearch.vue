@@ -3,20 +3,21 @@
     <el-container style="height: 100%">
       <el-aside width="50%">
         <el-col :span="10" style="margin-left:15%">
+          术语搜索
           <el-input v-model="termInput" placeholder="请输入术语内容">
-            <el-button slot="append" icon="el-icon-search" @click="termInputSubmit"/>
+            <el-button slot="append" icon="el-icon-search" @click="termInputSubmit" />
           </el-input>
         </el-col>
-        <el-col :span="24">
-          <div v-for="(v,k) in termSearchResult" :key=k>
-            <el-button @click="showTermDetail(k)">{{k}}</el-button>
+        <el-col :span="2">
+          <div v-for="(v, i) in termSearchResult" :key="i">
+            <el-button @click="showTermDetail(i)">{{ v[0] }}</el-button>
           </div>
         </el-col>
       </el-aside>
       <el-main>
-        <!-- nothing to see here -->
-        这里放介绍
-        <el-tree :data="termResultParsed" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+        <div class="tree">
+          <el-tree :data="termResultParsed" @node-click="handleNodeClick"></el-tree>
+        </div>
       </el-main>
     </el-container>
   </div>
@@ -26,45 +27,69 @@
 export default {
   data: () => ({
     termInput: '',
-    termSearchResult:{},
-    termResultParsed:[]
+    termSearchResult: {},
+    termResultParsed: [],
+    termDetailSave: {},
   }),
   methods: {
-    termInputSubmit(){
+    termInputSubmit() {
       let that = this
-      if(this.termInput == '') return;
-      this.$http.post(this.patchUrl('/source/term_search'), JSON.stringify(this.termInput), {emulateJSON: true})
-      .then(function(res){
-        if(res.ok == true){
+      if (this.termInput == '') return
+      this.$http.post(this.patchUrl('/source/term_search'), JSON.stringify(this.termInput), { emulateJSON: true }).then(function(res) {
+        if (res.ok == true) {
           let data = res.data
-          if(data != null){
+          // window.console.log(res)
+          if (data != null) {
             that.termSearchResult = data
-            // window.console.log(that.termSearchResult)
-          }else{
-            that.$message("无相似术语")
+          } else {
+            that.$message('无相似术语')
           }
-        }else{
-          this.$message.error("查询失败")
+        } else {
+          this.$message.error('查询失败')
         }
       })
     },
-    divData(data){
-      for(let k in data){
-        
+    divData(key, data) {
+      // window.console.log(key)
+      // window.console.log(data)
+      let res = {}
+      res.label = key
+      res.children = []
+      for (let row in data) {
+        res.children.push({ label: data[row] })
       }
+      return res
     },
-    showTermDetail(k){
-      let data = this.termSearchResult[k]
-      for(let k in data){
-        this.termResultParsed.push(divData(data[k]));
+    showTermDetail(i) {
+      let k = this.termSearchResult[i][0]
+      let that = this
+      if(this.termDetailSave[k] != undefined){
+        this.termResultParsed = this.termDetailSave[k]
+        return;
       }
+      this.$http.post(this.patchUrl(`/source/term_search_exact`), JSON.stringify(k), { emulateJSON: true }).then(function(res){
+        if(res.ok == true){
+          let data = res.data
+          let temp = []
+          for(let kk in data){
+            temp.push(this.divData(kk, data[kk]))
+          }
+          that.termResultParsed = temp
+          that.termDetailSave[k] = temp
+        }else{
+          that.$message("!!")
+        }
+      })
+    },
+    handleNodeClick(data) {
+      // console.log(data);
     }
   },
   mounted() {}
 }
 </script>
 
-<style>
+<style scoped>
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
@@ -77,14 +102,14 @@ export default {
   background-color: #d3dce6;
   color: #333;
   text-align: center;
-  line-height: 200px;
+  line-height: 100px;
 }
 
 .el-main {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  /* line-height: 160px; */
 }
 
 body > .el-container {
@@ -106,5 +131,16 @@ body > .el-container {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.el-tree {
+  overflow: scroll;
+  display: inline-block !important;
+  min-width: 100%;
+}
+
+.el-tree>.el-tree-node {
+  display: inline-block !important;
+  min-width: 100%;
 }
 </style>

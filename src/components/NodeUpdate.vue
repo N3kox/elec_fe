@@ -3,9 +3,9 @@
     <el-main v-if="!fromRouter">nothing to see here </el-main>
     <el-main v-if="fromRouter">
       <div v-for="(v, k) in showNodeDetail" :key="k">
-        <el-row>
+        <el-row v-if="notInStopList(k)">
           <el-col :span="4">
-            <div class="grid-content bg-purple">{{ k }} :</div></el-col
+            <div class="grid-content bg-purple">{{ getAnoName(k) }} :</div></el-col
           >
           <el-col :span="1"><div class="grid-content bg-white"></div></el-col>
           <el-col :span="8">
@@ -31,9 +31,20 @@ export default {
     fromRouter: false,
     waitingForUpdateConfirm: false,
     timerNameSave: [],
-    myDateFormat: 'yyyy/M/dd HH:mm'
+    myDateFormat: 'yyyy/M/dd HH:mm',
+    nameMap: {},
   }),
   methods: {
+    notInStopList(name){
+      if(name == 'gid') return false;
+      else if(name == 'type') return false;
+      else if(name == 'index') return false;
+      return true;
+    },
+    getAnoName(name){
+      if(this.nameMap[name] != undefined) return this.nameMap[name]
+      return name
+    },
     navigateBack() {
       let that = this
       setTimeout(() => {
@@ -93,6 +104,7 @@ export default {
     }
   },
   mounted() {
+    this.nameMap = this.getNameMap()
     if (this.$route.params.node == undefined) {
       //直接点击页面处理
       window.console.log('no router info')
@@ -149,7 +161,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .el-row {
   margin-bottom: 20px;
 }

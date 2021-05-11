@@ -31,7 +31,7 @@ const messages = {
               value: '术语搜索'
             },
             title5: {
-              value: '数据上传x'
+              value: '数据上传'
             }
           }
         },

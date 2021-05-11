@@ -99,6 +99,7 @@ export default {
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/DeviceOverview' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title3.value'), path: '/examples/SearchView' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title4.value'), path: '/examples/TermSearch' },
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title5.value'), path: '/examples/CsvUpload' },
           ],
           appendIcon: 'mdi-chevron-down'
         },

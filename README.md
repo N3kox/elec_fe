@@ -5,8 +5,9 @@
 - [x] 节点信息面板内容填充(drawer)
 - [x] 节点信息修改与数据同步
 - [x] 属性查询Node与Relationship
-- [ ] ~~界面内动态增删node与link~~
+- [x] ~~界面内动态增删node与link~~
 - [x] zoom in & out
+- [x] 术语搜索
 - [ ] 任务描述动态查询关联方案
 - [ ] 节点properties英文对照
 - [ ] 数据流重构

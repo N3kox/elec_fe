@@ -18,6 +18,11 @@ Vue.prototype.$axios = axios
 axios.defaults.baseURL="/query"
 axios.defaults.headers.get['Content-Type'] = 'application/json';
 
+router.beforeEach((to, from, next)=>{
+  if(to.meta.title) document.title = to.meta.title;
+  next();
+})
+
 new Vue({
   router,
   vuetify,
