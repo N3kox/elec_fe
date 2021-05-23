@@ -86,6 +86,14 @@ export default new Router({
           meta:{
             title:'数据上传更新'
           }
+        },
+        {
+          path: '/examples/SolutionSearchView',
+          name: 'SolutionSearchView',
+          component: () => import('./components/SolutionSearchView.vue'),
+          meta:{
+            title:'方案查询'
+          }
         }
       ]
     },

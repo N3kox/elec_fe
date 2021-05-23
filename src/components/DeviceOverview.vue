@@ -13,7 +13,7 @@
 
     <el-drawer title="Node Label" :visible.sync="nodeDialogVisible" width="30%" :modal="false">
       <div class="content-column" v-for="(v, k) in nodeDetail" :key="v.gid">
-        <span v-if="notInStopList(k)">{{getAnoName(k)}} : &nbsp;</span>
+        <span v-if="notInStopList(k)">{{ getAnoName(k) }} : &nbsp;</span>
         <span v-if="notInStopList(k)">{{ v }}</span>
       </div>
       <div class="content-column">
@@ -48,7 +48,7 @@ export default {
     nodeDetail: {},
     fullMap: new Map(),
     fromRouter: false,
-    nameMap:{},
+    nameMap: {}
   }),
   computed: {
     options() {
@@ -63,14 +63,15 @@ export default {
     }
   },
   methods: {
-    notInStopList(name){
-      if(name == 'gid') return false;
-      else if(name == 'type') return false;
-      else if(name == 'index') return false;
-      return true;
+    notInStopList(name) {
+      if (name == 'id') return false
+      else if (name == 'gid') return false
+      else if (name == 'type') return false
+      else if (name == 'index') return false
+      return true
     },
-    getAnoName(name){
-      if(this.nameMap[name] != undefined) return this.nameMap[name]
+    getAnoName(name) {
+      if (this.nameMap[name] != undefined) return this.nameMap[name]
       return name
     },
     handleClose(done) {
@@ -105,7 +106,7 @@ export default {
         let device = {}
         device.type = 'device'
         for (let k in item) {
-          if(item[k] == null) continue;
+          if (item[k] == null) continue
           if (typeof item[k] == 'string') {
             device[k] = item[k]
             continue
@@ -222,16 +223,15 @@ export default {
               break
             }
             case 'staffEntities': {
-              // window.conosle.log(item[k])
               for (let st in item[k]) {
-                // window.console.log(item[k][st])
+                window.console.log(item[k][st])
                 let staff = this.deepCopy(item[k][st])
-                staff.id = st.gid
-                staff.name = st.name
+                staff.id = staff.gid
+                staff.name = staff.name
                 newLinks.push({
                   source: deviceName,
                   target: staff.name,
-                  name: '设备制造商'
+                  name: '设备维护人员'
                 })
                 if (idSet.has(staff.id) == false) newNodes.push(staff)
                 // newNodes.push(staff)
@@ -257,6 +257,7 @@ export default {
       }
       this.nodeDetail = nd
       this.nodeDialogVisible = true
+      console.log(node)
       //   if (node.type == 'ticket') window.console.log(node.descSummary)
       //   else window.console.log(node.name)
     },
@@ -288,8 +289,8 @@ export default {
         return d.name
       })
 
-      let chargeForce = d3.forceManyBody().strength(-300)
-      let centerForce = d3.forceCenter(width / 2, height / 2)
+      let chargeForce = d3.forceManyBody().strength(-700)
+      let centerForce = d3.forceCenter(width / 4, height / 4)
 
       simulation
         .force('chargeForce', chargeForce)
@@ -445,7 +446,7 @@ export default {
   },
   mounted() {
     let that = this
-    this.nameMap = this.getNameMap();
+    this.nameMap = this.getNameMap()
     if (this.$route.params.data == undefined) {
       new Promise((resolve, reject) => {
         that.$http.get(this.patchUrl(`/device/all`)).then((response) => {
@@ -462,11 +463,17 @@ export default {
       // console.log(data)
       that.parseMissionTicketStop(data)
       that.graphDraw()
-      this.$message.success("查询成功")
+      this.$message.success('查询成功')
     }
   }
 }
 </script>
+
+<style>
+.el-drawer {
+  overflow: scroll;
+}
+</style>
 
 <style scoped>
 body {
@@ -535,9 +542,5 @@ ul.menu li {
 .content-unit {
   margin-left: 5px;
   color: #9a9a9a;
-}
-
-.el-drawer.rtl {
-  overflow: scroll;
 }
 </style>

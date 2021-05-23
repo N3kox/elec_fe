@@ -155,6 +155,7 @@ export default {
       }
       this.nodeDetail = nd
       this.nodeDialogVisible = true
+      // console.log(node)
       //   if (node.type == 'ticket') window.console.log(node.descSummary)
       //   else window.console.log(node.name)
     },
@@ -256,9 +257,9 @@ export default {
       /** Functions **/
 
       function circleColour(d) {
-        if (d.type == 'ticket') return 'red'
-        else if (d.type == 'staff') return 'green'
-        return 'blue'
+        if (d.type == 'ticket') return '#FAEBD7'
+        else if (d.type == 'staff') return '#6495ED'
+        return '#FF7F50'
       }
 
       function linkColour(d) {
@@ -418,5 +419,11 @@ ul.menu li {
 .content-unit {
   margin-left: 5px;
   color: #9a9a9a;
+}
+</style>
+
+<style>
+.el-drawer {
+  overflow: scroll;
 }
 </style>

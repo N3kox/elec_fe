@@ -32,6 +32,9 @@ const messages = {
             },
             title5: {
               value: '数据上传'
+            },
+            title6: {
+              value: '方案查询'
             }
           }
         },

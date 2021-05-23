@@ -20,7 +20,7 @@
             <el-select v-model="deviceSelections[num - 1].key" placeholder="请选择" @change="change1">
               <el-option v-for="item in deviceOptions" :key="item.value" :label="getAnoName(item.label)" :value="item.value" />
             </el-select>
-            <el-input style="margin-left: 80px; width: 300px" v-model="deviceSelections[num - 1].val"></el-input>
+            <el-input style="margin-left: 50px; width: 300px" v-model="deviceSelections[num - 1].val" placeholder="请输入属性值"></el-input>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             <el-select v-model="ticketSelections[num - 1].key" placeholder="请选择">
               <el-option v-for="item in ticketOptions" :key="item.value" :label="getAnoName(item.label)" :value="item.value" />
             </el-select>
-            <el-input style="margin-left: 80px; width: 300px" v-model="ticketSelections[num - 1].val"></el-input>
+            <el-input style="margin-left: 80px; width: 300px" v-model="ticketSelections[num - 1].val" placeholder="请输入属性值"></el-input>
           </div>
         </div>
       </div>
