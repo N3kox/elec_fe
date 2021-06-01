@@ -50,6 +50,7 @@
       />-->
       <v-spacer />
       <v-menu offset-y>
+        
     </v-menu>
       <!-- <v-btn icon @click="changeTheme">
         <v-icon v-if="!dark">mdi-brightness-7</v-icon>
@@ -58,6 +59,8 @@
       <v-btn icon @click="openTab">
         <v-icon size="28">mdi-github</v-icon>
       </v-btn> -->
+      
+      <el-button circle icon="el-icon-s-home" type="primary" @click="navigateToMain"></el-button>
       <v-btn icon @click="dialog = true">
         <v-icon size="28">mdi-information-outline</v-icon>
       </v-btn>
@@ -86,21 +89,35 @@ export default {
     drawer: null,
     itemActive: 0,
     subItemActive: 0,
-    selectedItem: 0
+    selectedItem: 0,
   }),
   computed: {
     items: function () {
       return [
         {
-          icon: 'mdi-alpha-f-box-outline',
+          icon: 'mdi-graphql',
           title: this.$vuetify.lang.t('$vuetify.sidebar.title1.value'),
           children: [
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title1.value'), path: '/examples/MissionTicketOverview' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title2.value'), path: '/examples/DeviceOverview' },
+          ],
+          appendIcon: 'mdi-chevron-down'
+        },
+        {
+          icon: 'mdi-home-search-outline',
+          title: this.$vuetify.lang.t('$vuetify.sidebar.title2.value'),
+          children: [
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title3.value'), path: '/examples/SearchView' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title4.value'), path: '/examples/TermSearch' },
-            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title5.value'), path: '/examples/CsvUpload' },
             { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title6.value'), path: '/examples/SolutionSearchView' },
+          ],
+          appendIcon: 'mdi-chevron-down'
+        },
+        {
+          icon: 'mdi-file-upload-outline',
+          title: this.$vuetify.lang.t('$vuetify.sidebar.title3.value'),
+          children: [
+            { title: this.$vuetify.lang.t('$vuetify.sidebar.title1.children.title5.value'), path: '/examples/CsvUpload' },
           ],
           appendIcon: 'mdi-chevron-down'
         },
@@ -172,9 +189,6 @@ export default {
         }
       }
     },
-    openTab () {
-      window.open('https://github.com/gywgithub/vue-d3-examples', '_blank')
-    },
     itemClick (item, key) {
       this.subItemActive = null
       sessionStorage.setItem('itemActive', key)
@@ -190,6 +204,9 @@ export default {
       this.dark = !this.dark
       localStorage.setItem('themeDark', String(this.dark))
       this.$vuetify.theme.dark = this.dark
+    },
+    navigateToMain(){
+      this.$router.push('/examples/helloworld').catch(err=>{})
     }
   }
 }

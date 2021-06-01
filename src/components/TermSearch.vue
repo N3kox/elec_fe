@@ -2,10 +2,10 @@
   <div id="app">
     <el-container style="height: 100%">
       <el-aside width="50%">
-        <el-col :span="10" style="margin-left:15%">
+        <el-col :span="10" style="margin-left: 15%">
           术语搜索
           <el-input v-model="termInput" placeholder="请输入术语内容">
-            <el-button slot="append" icon="el-icon-search" @click="termInputSubmit" />
+            <el-button slot="append" icon="el-icon-search" @click="termInputSubmit" :loading="clicked" />
           </el-input>
         </el-col>
         <el-col :span="2">
@@ -30,12 +30,17 @@ export default {
     termSearchResult: {},
     termResultParsed: [],
     termDetailSave: {},
+    clicked: false
   }),
   methods: {
     termInputSubmit() {
       let that = this
-      if (this.termInput == '') return
-      this.$http.post(this.patchUrl('/source/term_search'), JSON.stringify(this.termInput), { emulateJSON: true }).then(function(res) {
+      if (this.termInput == '') {
+        this.$message('请输入内容')
+        return
+      }
+      this.clicked = true
+      this.$http.post(this.patchUrl('/source/term_search'), JSON.stringify(this.termInput), { emulateJSON: true }).then(function (res) {
         if (res.ok == true) {
           let data = res.data
           // window.console.log(res)
@@ -47,6 +52,7 @@ export default {
         } else {
           this.$message.error('查询失败')
         }
+        that.clicked = false
       })
     },
     divData(key, data) {
@@ -63,21 +69,23 @@ export default {
     showTermDetail(i) {
       let k = this.termSearchResult[i][0]
       let that = this
-      if(this.termDetailSave[k] != undefined){
+      if (this.termDetailSave[k] != undefined) {
         this.termResultParsed = this.termDetailSave[k]
-        return;
+        return
       }
-      this.$http.post(this.patchUrl(`/source/term_search_exact`), JSON.stringify(k), { emulateJSON: true }).then(function(res){
-        if(res.ok == true){
+      this.$http.post(this.patchUrl(`/source/term_search_exact`), JSON.stringify(k), { emulateJSON: true }).then(function (res) {
+        if (res.ok == true) {
           let data = res.data
           let temp = []
-          for(let kk in data){
+          for (let kk in data) {
             temp.push(this.divData(kk, data[kk]))
           }
           that.termResultParsed = temp
           that.termDetailSave[k] = temp
-        }else{
-          that.$message("!!")
+          that.$message.sucess("查询结果返回")
+          
+        } else {
+          that.$message('无检索结果')
         }
       })
     },
@@ -89,7 +97,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
@@ -133,7 +141,20 @@ body > .el-container {
   height: 100%;
 }
 
-.el-tree {
+.tree {
+  height: 100%;
+}
+
+.el-tree-node {
+  white-space: normal;
+  height: 100%;
+}
+.el-tree-node__content {
+  height: 100%;
+  /* align-items: start; */
+}
+
+/* .el-tree {
   overflow: scroll;
   display: inline-block !important;
   min-width: 100%;
@@ -142,5 +163,5 @@ body > .el-container {
 .el-tree>.el-tree-node {
   display: inline-block !important;
   min-width: 100%;
-}
+} */
 </style>

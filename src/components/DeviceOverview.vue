@@ -18,6 +18,7 @@
       </div>
       <div class="content-column">
         <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
+        <el-button type="primary" @click="showNodeLogs">历 史</el-button>
         <el-button type="primary" @click="nodeDialogVisible = false">关 闭</el-button>
       </div>
       <!-- <span slot="footer" class="dialog-footer">
@@ -107,7 +108,7 @@ export default {
         device.type = 'device'
         for (let k in item) {
           if (item[k] == null) continue
-          if (typeof item[k] == 'string') {
+          if (typeof item[k] == 'string' || typeof item[k] == 'number') {
             device[k] = item[k]
             continue
           }
@@ -224,7 +225,7 @@ export default {
             }
             case 'staffEntities': {
               for (let st in item[k]) {
-                window.console.log(item[k][st])
+                // window.console.log(item[k][st])
                 let staff = this.deepCopy(item[k][st])
                 staff.id = staff.gid
                 staff.name = staff.name
@@ -249,6 +250,7 @@ export default {
     },
 
     nodeClick(node) {
+      // window.console.log(node)
       let nd = {}
       for (let k in node) {
         if (this.propertiesStopList.indexOf(k) == -1) {
@@ -262,7 +264,7 @@ export default {
       //   else window.console.log(node.name)
     },
     linkClick(link) {
-      this.linkDialogVisible = true
+      // this.linkDialogVisible = true
     },
 
     nodeChangeClick() {
@@ -272,6 +274,17 @@ export default {
         name: 'NodeUpdate',
         params: {
           node: that.nodeDetail
+        }
+      })
+    },
+    showNodeLogs(){
+      let that = this
+      this.$router.push({
+        path: '/examples/LogsView',
+        name: 'LogsView',
+        params:{
+          node: that.nodeDetail,
+          type: 'device'
         }
       })
     },

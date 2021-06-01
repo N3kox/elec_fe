@@ -38,6 +38,28 @@ const messages = {
             }
           }
         },
+        title2: {
+          value: '检索',
+          children: {
+            title1: {
+              value: '子图查询'
+            },
+            title2: {
+              value: '术语搜索'
+            },
+            title3: {
+              value: '方案检索'
+            }
+          }
+        },
+        title3: {
+          value: '上传',
+          children:{
+            title1: {
+              value: '数据上传'
+            }
+          }
+        }
         // title2: {
         //   value: '信息更新',
         //   children: {

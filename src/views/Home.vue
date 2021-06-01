@@ -6,11 +6,9 @@
         <img src="../assets/img/d3.svg" class="d-flex img-width img-d3-padding" />
         <img src="../assets/img/neo.webp" class="d-flex img-width" />
       </div>
-      <h4
-        class="display-3 font-weight-regular span-margin"
-      >电力领域知识图谱demo</h4>
+      <h4 class="display-3 font-weight-regular span-margin">电力领域知识图谱demo</h4>
       <div>
-        <v-btn outlined large rounded color="primary" class="margin-0-15 z-index-2" @click="routerRedirect"><v-icon left>mdi-palm-tree</v-icon>{{$vuetify.lang.t('$vuetify.examplesButton')}}</v-btn>
+        <v-btn outlined large rounded color="primary" class="margin-0-15 z-index-2" @click="routerRedirect"><v-icon left>mdi-palm-tree</v-icon>{{ $vuetify.lang.t('$vuetify.examplesButton') }}</v-btn>
       </div>
     </div>
   </div>
@@ -18,21 +16,21 @@
 <script>
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       dark: false
     }
   },
-  created () {
+  created() {
     if (localStorage.getItem('themeDark') && localStorage.getItem('themeDark') === 'true') {
       this.$vuetify.theme.dark = true
       this.dark = true
     }
   },
   methods: {
-    routerRedirect () {
-      this.$router.push('/examples').catch(err => { }) // eslint-disable-line
-    },  
+    routerRedirect() {
+      this.$router.push('/examples').catch((err) => {}) // eslint-disable-line
+    }
   }
 }
 </script>

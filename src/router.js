@@ -56,6 +56,14 @@ export default new Router({
           }
         },
         {
+          path: '/examples/LogsView',
+          name: 'LogsView',
+          component: () => import('./components/LogsView.vue'),
+          meta:{
+            title:'历史记录'
+          }
+        },
+        {
           path: '/examples/NodeUpdate',
           name: 'NodeUpdate',
           component: () => import('./components/NodeUpdate.vue'),

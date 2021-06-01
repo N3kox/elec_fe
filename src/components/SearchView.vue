@@ -133,6 +133,49 @@ export default {
       })
     },
 
+    dynamicCombine(cp){
+      // 去完全相同项
+      let base = [];
+      for(let i = 0; i < cp.length; i++){
+        let j = 0;
+        for(j; j < base.length; j++){
+          if(cp[i].key == base[j].key && cp[i].val == base[j].val)
+            break;
+        }
+        if(j == base.length){
+          base.push(cp[i])
+        }
+      }
+      let tmp = []
+      tmp.push([]);
+      for(let index in base){
+        let item = base[index]
+        let found = false
+        for(let i = 0; i < tmp[0].length; i++){
+          if(tmp[0][i].key == item.key){
+            found = true;
+            break;
+          }
+        }
+        if(found == true){
+          let a = JSON.parse(JSON.stringify(tmp));
+          for(let i = 0; i < a.length; i++){
+            for(let j = 0; j < a[i].length; j++){
+              if(a[i][j].key == item.key){
+                a[i][j].val = item.val
+              }
+            }
+            tmp.push(a[i]);
+          }
+        }else{
+          for(let i = 0; i < tmp.length; i++){
+            tmp[i].push(item);
+          }
+        }
+      }
+      return tmp
+    },
+
     submitDeviceSelections() {
       let that = this
       let cp = this.deepCopy(this.deviceSelections)
@@ -147,9 +190,9 @@ export default {
         }
         cp[i].key = this.deviceOptions[cp[i].key - 1].label
       }
-      
+      let tmp = this.dynamicCombine(cp);
       this.$http
-        .post(this.patchUrl(`/device/dynamic_search`), JSON.stringify(cp), { emulateJSON: true })
+        .post(this.patchUrl(`/device/dynamic_search`), JSON.stringify(tmp), { emulateJSON: true })
         .then(function(res) {
           if (res.ok == true) {
             let data = res.data
@@ -186,8 +229,8 @@ export default {
         }
         cp[i].key = this.ticketOptions[cp[i].key - 1].label;
       }
-      window.console.log(cp);
-      this.$http.post(this.patchUrl(`/mission_ticket/dynamic_search`), JSON.stringify(cp),{emulateJSON : true}).then((res)=>{
+      let tmp = this.dynamicCombine(cp);
+      this.$http.post(this.patchUrl(`/mission_ticket/dynamic_search`), JSON.stringify(tmp),{emulateJSON : true}).then((res)=>{
         if (res.ok == true) {
             let data = res.data
             if (data.length > 0) {

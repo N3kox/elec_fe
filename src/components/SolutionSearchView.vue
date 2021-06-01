@@ -4,7 +4,7 @@
       <el-button slot="append" icon="el-icon-search" @click="SolutionInputSubmit" />
     </el-input>
     <div>
-      <el-collapse accordion v-model="activeName">
+      <el-collapse v-model="activeName">
         <el-collapse-item v-for="k, i in solutions" :key="i" :name="i" :title="solutions[i][0]">
           <div>{{solutions[i][1]}}</div>
         </el-collapse-item>

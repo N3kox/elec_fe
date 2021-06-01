@@ -55,14 +55,12 @@ export default {
       let that = this
       let copy = this.deepCopy(this.showNodeDetail)
       copy.gid = this.gid
-      // TODO: 增加更多gid-type-node的修改格式
       switch (this.type) {
         case 'ticket': {
           this.waitingForUpdateConfirm = true
           for (let k in copy) if (copy[k] == 'null') copy[k] = ''
           // window.console.log(JSON.stringify(copy))
-          // TODO: 修改接口地址
-          this.$http.put(this.patchUrl(`/mission_ticket/update/test2?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+          this.$http.put(this.patchUrl(`/mission_ticket/update?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
             if (response.body == true) {
               this.$message.success('ok')
               that.waitingForUpdateConfirm = false
@@ -80,7 +78,6 @@ export default {
           break
         }
         case 'route': {
-          // TODO: 修改接口地址
           let that = this
           this.waitingForUpdateConfirm = true
           for (let k in copy) if (copy[k] == 'null') copy[k] = ''
@@ -91,6 +88,22 @@ export default {
               that.navigateBack()
             } else {
               this.$message.error('更新RouteLocation失败，请重试')
+              that.waitingForUpdateConfirm = false
+            }
+          })
+          break
+        }
+        case 'device':{
+          let that = this
+          this.waitingForUpdateConfirm = true
+          for (let k in copy) if (copy[k] == 'null') copy[k] = ''
+          this.$http.put(this.patchUrl(`/device/update?id=${this.gid}`), JSON.stringify(copy), { emulateJSON: true }).then((response) => {
+            if (response.body == true) {
+              this.$message.success('ok')
+              that.waitingForUpdateConfirm = false
+              that.navigateBack()
+            } else {
+              this.$message.error('更新device失败，请重试')
               that.waitingForUpdateConfirm = false
             }
           })
@@ -117,16 +130,17 @@ export default {
         switch (k) {
           case 'gid': {
             this.gid = from[k]
-            // window.console.log(this.gid)
+            // window.console.log(from[k])
             break
           }
           case 'id': {
             this.gid = from[k]
+            // window.console.log(from[k])
             break
           }
           case 'type': {
             this.type = from[k]
-            window.console.log(from[k])
+            // window.console.log(from[k])
             break
           }
           case 'preparedTime':

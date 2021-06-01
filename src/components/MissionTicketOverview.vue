@@ -18,6 +18,7 @@
       </div>
       <div class="content-column">
         <el-button type="primary" @click="nodeChangeClick">修 改</el-button>
+        <el-button type="primary" @click="showNodeLogs">历 史</el-button>
         <el-button type="primary" @click="nodeDialogVisible = false">关 闭</el-button>
       </div>
       <!-- <span slot="footer" class="dialog-footer">
@@ -160,7 +161,7 @@ export default {
       //   else window.console.log(node.name)
     },
     linkClick(link) {
-      this.linkDialogVisible = true
+      // this.linkDialogVisible = true
     },
 
     nodeChangeClick() {
@@ -170,6 +171,17 @@ export default {
         name: 'NodeUpdate',
         params: {
           node: that.nodeDetail
+        }
+      })
+    },
+    showNodeLogs(){
+      let that = this
+      this.$router.push({
+        path: '/examples/LogsView',
+        name: 'LogsView',
+        params:{
+          node: that.nodeDetail,
+          type: 'ticket'
         }
       })
     },
