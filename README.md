@@ -8,13 +8,25 @@
 - [x] ~~界面内动态增删node与link~~
 - [x] zoom in & out
 - [x] 术语搜索
-- [ ] 任务描述动态查询关联方案
-- [ ] 节点properties英文对照
-- [ ] 数据流重构
+- [x] 任务描述动态查询关联方案
+- [x] 节点properties英文对照
+- [ ] ~~数据流重构~~
+- [x] 文件上传
 
 ### Project setup
 ```
 npm install
+```
+
+### Config
+- `base.js`:
+```
+beurl : Springboot后端地址
+```
+- `vue.config.js`
+```
+devServer : 运行端口（默认9999）
+// 可配置其他必要内容
 ```
 
 ### Compiles and hot-reloads for development

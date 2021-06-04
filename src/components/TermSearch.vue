@@ -50,7 +50,7 @@ export default {
             that.$message('无相似术语')
           }
         } else {
-          this.$message.error('查询失败')
+          that.$message.error('查询失败')
         }
         that.clicked = false
       })
